@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b6ab07b933d3c4cc1b4a5f24125ca189
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/src/com/facebook/widget/LoginButton.java
+  uploadId: 53603

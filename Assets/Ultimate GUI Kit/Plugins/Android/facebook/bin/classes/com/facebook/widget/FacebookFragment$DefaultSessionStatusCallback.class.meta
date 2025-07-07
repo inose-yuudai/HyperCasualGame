@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: ea40f7eb3985a451aa2fe32b8b782b57
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/FacebookFragment$DefaultSessionStatusCallback.class
+  uploadId: 53603

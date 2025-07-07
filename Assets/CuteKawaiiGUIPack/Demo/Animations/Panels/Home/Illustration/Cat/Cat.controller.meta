@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 75086a5bf9b1547afb90f5266408aefd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Home/Illustration/Cat/Cat.controller
+  uploadId: 654793

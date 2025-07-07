@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9017ab5e14a7c494cba305b17d0de33d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/2-Components/Dropdown/Dropdown-Label-Only.prefab
+  uploadId: 654793

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4a430a2034a2e4de5b6a4ced5c25f8c8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Popups/Lose/Bunny/Spiral-Idle.anim
+  uploadId: 654793

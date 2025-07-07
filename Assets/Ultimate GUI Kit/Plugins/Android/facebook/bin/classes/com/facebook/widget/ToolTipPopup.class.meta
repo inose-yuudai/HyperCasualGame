@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 03f1d7f968b9c4b03bf5fcb172d4214b
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/ToolTipPopup.class
+  uploadId: 53603

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9566e6dd7c65c4c5bab8090f2358fdf9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/3-Layouts/Item-List-ScrollView/Item-List.prefab
+  uploadId: 654793

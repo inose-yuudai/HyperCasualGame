@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: de14e6827a8a54d21a55c1f58bc86057
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Rewards-Ladder/Header/Rocket/Rocket.controller
+  uploadId: 654793

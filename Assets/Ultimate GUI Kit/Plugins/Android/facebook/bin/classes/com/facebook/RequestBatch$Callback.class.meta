@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: f891b2733d8bb42efb5147aba613833c
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/RequestBatch$Callback.class
+  uploadId: 53603

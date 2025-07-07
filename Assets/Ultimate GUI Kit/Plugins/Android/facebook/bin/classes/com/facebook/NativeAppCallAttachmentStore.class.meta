@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 230b5b2bb6a534f4298baea11c6d33b4
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/NativeAppCallAttachmentStore.class
+  uploadId: 53603

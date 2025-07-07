@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d3644c98f32d44fcab8b04a2ca8f42b0
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/src/com/facebook/unity/FBUnityDialogsActivity.java
+  uploadId: 53603

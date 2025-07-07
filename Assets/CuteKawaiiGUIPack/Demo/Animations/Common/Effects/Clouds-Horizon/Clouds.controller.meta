@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29709e0df80f047e6bc67e0c6a98cde0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Common/Effects/Clouds-Horizon/Clouds.controller
+  uploadId: 654793

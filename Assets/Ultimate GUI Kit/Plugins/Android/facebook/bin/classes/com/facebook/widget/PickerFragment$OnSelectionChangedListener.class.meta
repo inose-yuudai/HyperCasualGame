@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a8230b2bf6be4412caa8227ba2a9f7bc
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/PickerFragment$OnSelectionChangedListener.class
+  uploadId: 53603

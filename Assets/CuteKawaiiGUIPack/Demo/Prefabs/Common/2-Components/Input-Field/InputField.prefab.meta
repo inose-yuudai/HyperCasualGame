@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 24ddf243ea8f64a47b411fb2cf428c5b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/2-Components/Input-Field/InputField.prefab
+  uploadId: 654793

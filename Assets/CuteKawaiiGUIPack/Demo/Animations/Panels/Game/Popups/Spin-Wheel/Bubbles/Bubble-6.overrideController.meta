@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7c9a4234a4e3f4cd7837952d58c6c5e3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 22100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Popups/Spin-Wheel/Bubbles/Bubble-6.overrideController
+  uploadId: 654793

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dc5346e0d54154b7487aa7fbe8ea924f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/2-Components/Buttons/Buttons/Button-Gray-Light-Icon-Only.prefab
+  uploadId: 654793

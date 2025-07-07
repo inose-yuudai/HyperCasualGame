@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 7b43e0ff83e5446bab841c7e1e6ef2f9
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/internal/PlatformServiceClient$CompletedListener.class
+  uploadId: 53603

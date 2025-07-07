@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 93233d5d423054f22a4081a3cf3442d1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Popups/Lose/Cloud/Cloud.controller
+  uploadId: 654793

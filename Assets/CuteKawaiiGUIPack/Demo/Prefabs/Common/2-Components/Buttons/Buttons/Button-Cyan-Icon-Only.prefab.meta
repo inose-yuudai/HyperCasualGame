@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b1a721175fba442f8b123a18849ef67b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/2-Components/Buttons/Buttons/Button-Cyan-Icon-Only.prefab
+  uploadId: 654793

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cb2a8babf76824ad5b762087dcb5fac3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Popups/Lose/Lose-Popup.prefab
+  uploadId: 654793

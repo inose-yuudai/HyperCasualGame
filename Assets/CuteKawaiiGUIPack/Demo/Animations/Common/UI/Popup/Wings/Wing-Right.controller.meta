@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e921767357e6f416c8001d1fb646345a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Common/UI/Popup/Wings/Wing-Right.controller
+  uploadId: 654793

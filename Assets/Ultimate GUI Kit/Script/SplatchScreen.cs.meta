@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7fca4a4c0dd25c440bc06d5c089a75b3
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Script/SplatchScreen.cs
+  uploadId: 53603

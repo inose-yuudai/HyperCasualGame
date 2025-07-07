@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 8ccd81f87418d4dc093d9df63ed58f42
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/unity/UnityMessage.class
+  uploadId: 53603

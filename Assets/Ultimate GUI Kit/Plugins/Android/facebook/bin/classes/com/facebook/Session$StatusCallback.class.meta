@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 0827f200a00bc4c02a44e30b5a3ff607
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/Session$StatusCallback.class
+  uploadId: 53603

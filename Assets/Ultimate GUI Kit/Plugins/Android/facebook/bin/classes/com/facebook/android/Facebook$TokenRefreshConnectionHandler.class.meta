@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: e346e892fe6e344b3a1b4fa672a1f6c5
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/android/Facebook$TokenRefreshConnectionHandler.class
+  uploadId: 53603

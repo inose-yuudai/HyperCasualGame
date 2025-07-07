@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d72488daf7d004cb9a60edba2c3a5fc3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Character-Creation/Girl/Girl-Head.controller
+  uploadId: 654793

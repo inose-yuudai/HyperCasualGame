@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 850ff5ecdb19b40568cbd750bace878c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Popups/Game-Item-Info/Game-Item-Info-Popup.prefab
+  uploadId: 654793

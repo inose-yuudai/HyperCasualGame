@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 13cf0b7a243d2480bb0eade12510858a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Rewards-Ladder/Header/Ufo/Bunny.controller
+  uploadId: 654793

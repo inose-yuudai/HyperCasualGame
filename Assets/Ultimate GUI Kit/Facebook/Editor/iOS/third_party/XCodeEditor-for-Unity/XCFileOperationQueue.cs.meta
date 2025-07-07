@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8a20716d12def417c9d0a303293098ac
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Facebook/Editor/iOS/third_party/XCodeEditor-for-Unity/XCFileOperationQueue.cs
+  uploadId: 53603

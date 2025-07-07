@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: cef94d4330179284ebf1c08a6945802c
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Script/ButtonRedirect.cs
+  uploadId: 53603

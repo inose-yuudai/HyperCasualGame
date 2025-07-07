@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e9f29f7eb565e4065a29128b6fe969eb
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Popups/Lose/Particles-Rain.prefab
+  uploadId: 654793

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0641f7c9ce639460193b1c417523270f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Settings/Cow/Cow.controller
+  uploadId: 654793

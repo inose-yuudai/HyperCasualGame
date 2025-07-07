@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: cdb9c2c949f6d4f79af52a9113733bcb
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/Session$StartActivityDelegate.class
+  uploadId: 53603

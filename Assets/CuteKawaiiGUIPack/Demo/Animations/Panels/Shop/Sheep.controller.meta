@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0aaa03b0874e44eab99526f50e043658
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Shop/Sheep.controller
+  uploadId: 654793

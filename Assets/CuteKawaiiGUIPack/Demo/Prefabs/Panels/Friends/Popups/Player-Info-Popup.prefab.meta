@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: da4ff52b4bcf448b29a89c49d57b6343
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Friends/Popups/Player-Info-Popup.prefab
+  uploadId: 654793

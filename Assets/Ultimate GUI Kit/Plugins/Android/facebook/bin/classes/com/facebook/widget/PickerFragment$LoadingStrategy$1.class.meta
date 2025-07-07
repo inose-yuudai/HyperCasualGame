@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 2428354564d5f4d2499d16289d90ef09
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/PickerFragment$LoadingStrategy$1.class
+  uploadId: 53603

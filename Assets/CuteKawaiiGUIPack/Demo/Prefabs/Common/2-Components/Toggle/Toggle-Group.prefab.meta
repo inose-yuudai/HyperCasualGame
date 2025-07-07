@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9caca2f2e5d434accbf7274a5dfa7cf9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/2-Components/Toggle/Toggle-Group.prefab
+  uploadId: 654793

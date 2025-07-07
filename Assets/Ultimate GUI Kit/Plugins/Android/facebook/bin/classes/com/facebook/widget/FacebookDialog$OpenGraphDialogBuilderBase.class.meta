@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 594ef842c848e4b8db55e723cc19eb95
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/FacebookDialog$OpenGraphDialogBuilderBase.class
+  uploadId: 53603

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d22fee6d431524d6ebae631fd8a3c9fe
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/WebDialog$RequestsDialogBuilder.class
+  uploadId: 53603

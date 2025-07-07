@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 13e04148d6bc34fb8905b11e4f79d7d3
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/src/com/facebook/AuthorizationClient.java
+  uploadId: 53603

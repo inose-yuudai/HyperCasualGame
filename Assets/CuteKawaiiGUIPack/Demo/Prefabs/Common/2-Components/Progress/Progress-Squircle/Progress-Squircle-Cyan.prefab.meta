@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d2e62a9f9e6714a728566002f1cbdd28
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Common/2-Components/Progress/Progress-Squircle/Progress-Squircle-Cyan.prefab
+  uploadId: 654793

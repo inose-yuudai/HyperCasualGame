@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 1551f33afcb1e469eadf2f7b615b165d
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/internal/ImageRequest$Builder.class
+  uploadId: 53603
