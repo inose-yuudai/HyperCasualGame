@@ -4,7 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-    // 状態を3つに簡略化
     private enum EnemyState
     {
         Spawning,
@@ -23,16 +22,14 @@ public class Enemy : MonoBehaviour
     private Rigidbody _rigidbody;
     private Animator _animator;
     private Renderer _renderer;
-
     private float _currentMoveSpeed;
 
-    [SerializeField, Tooltip("デバッグ用にインスペクターに表示される現在のHP")]
+    [SerializeField]
     private int _currentHealth;
-
-    // Dieトリガーのみ使用
     private static readonly int k_animatorTriggerDie = Animator.StringToHash("Die");
-
     public int ScoreValue => (_enemyData != null) ? _enemyData.scoreValue : 0;
+
+    private bool _isFrozen = false;
 
     private void Awake()
     {
@@ -40,7 +37,6 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
         _renderer = GetComponentInChildren<Renderer>();
         _currentState = EnemyState.Spawning;
-
         if (_enemyData == null)
         {
             Debug.LogError("EnemyDataがアタッチされていません！", this);
@@ -52,10 +48,39 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 移動状態の時のみ、移動処理を実行
-        if (_currentState == EnemyState.Moving)
+        if (_currentState == EnemyState.Moving && !_isFrozen)
         {
             MoveTowardsTarget();
+        }
+    }
+
+    public void Initialize(Transform target)
+    {
+        _targetPlayer = target;
+        SetState(EnemyState.Moving);
+
+        // if (GameManager.Instance != null && GameManager.Instance.IsTimeStopped)
+        // {
+        //     SetFrozen(true);
+        // }
+    }
+
+    public void SetFrozen(bool frozen)
+    {
+        _isFrozen = frozen;
+        if (_rigidbody == null)
+            return;
+
+        if (frozen)
+        {
+            _rigidbody.linearVelocity = Vector3.zero;
+            if (_animator != null)
+                _animator.speed = 0;
+        }
+        else
+        {
+            if (_animator != null)
+                _animator.speed = 1;
         }
     }
 
@@ -65,25 +90,15 @@ public class Enemy : MonoBehaviour
         _currentHealth = _enemyData.health;
     }
 
-    public void Initialize(Transform target)
-    {
-        _targetPlayer = target;
-        SetState(EnemyState.Moving);
-    }
-
     public void TakeDamage(int damage, Vector3 knockbackDirection, float knockbackForce)
     {
         if (_currentState == EnemyState.Dying)
             return;
         _currentHealth -= damage;
-
         if (_currentHealth > 0)
         {
-            Debug.Log("ダメージを与えたが、まだ生きています。残りHP: " + _currentHealth);
             if (_renderer != null)
-            {
                 _renderer.material.color = _enemyData.damagedColor;
-            }
         }
         else
         {
@@ -96,26 +111,21 @@ public class Enemy : MonoBehaviour
         if (_currentState == newState)
             return;
         _currentState = newState;
-        // MoveSpeedパラメータの更新処理を削除
     }
 
     private void MoveTowardsTarget()
     {
         if (_targetPlayer == null)
             return;
-
         Vector3 direction = _targetPlayer.position - transform.position;
         direction.y = 0;
         direction.Normalize();
-
         _rigidbody.linearVelocity = direction * _currentMoveSpeed;
-
         if (direction != Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
-                targetRotation,
+                Quaternion.LookRotation(direction),
                 Time.fixedDeltaTime * 10f
             );
         }
@@ -126,14 +136,32 @@ public class Enemy : MonoBehaviour
         SetState(EnemyState.Dying);
         OnDefeated?.Invoke(this);
         GetComponent<Collider>().enabled = false;
-
-        // Dieアニメーションを再生
-        _animator.SetTrigger(k_animatorTriggerDie);
-
+        if (_animator != null)
+            _animator.SetTrigger(k_animatorTriggerDie);
         _rigidbody.linearVelocity = Vector3.zero;
         _rigidbody.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
         _rigidbody.AddTorque(transform.up * knockbackForce * 0.1f, ForceMode.Impulse);
-
         Destroy(gameObject, 3f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(1);
+            }
+            DieByCollision();
+        }
+    }
+
+    private void DieByCollision()
+    {
+        SetState(EnemyState.Dying);
+        OnDefeated?.Invoke(this);
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

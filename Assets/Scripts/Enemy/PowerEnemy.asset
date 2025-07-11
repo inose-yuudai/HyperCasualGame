@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PowerEnemy
   m_EditorClassIdentifier: 
   enemyName: Enemy
-  moveSpeed: 0.5
+  moveSpeed: 1
   health: 2
   scoreValue: 10
   damagedColor: {r: 1, g: 0.9203187, b: 0, a: 1}
