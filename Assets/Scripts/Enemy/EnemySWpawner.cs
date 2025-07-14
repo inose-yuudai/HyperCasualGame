@@ -1,4 +1,3 @@
-// EnemySpawner.cs の全文
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
@@ -6,6 +5,9 @@ using System;
 
 public class EnemySpawner : MonoBehaviour
 {
+    // 静的イベント（新しい敵が生成されたときに発火）
+    public static event Action<Enemy> OnEnemySpawned;
+
     public event Action OnWaveCleared;
     public UnityEvent OnEnemyCountUpdated;
     public int TotalEnemiesToSpawn { get; private set; }
@@ -32,7 +34,17 @@ public class EnemySpawner : MonoBehaviour
     private int _aliveEnemiesCount;
     private bool _isSpawning;
 
- 
+    private void Start()
+    {
+        if (_playerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                _playerTransform = player.transform;
+            }
+        }
+    }
 
     public void StartWave()
     {
@@ -68,13 +80,14 @@ public class EnemySpawner : MonoBehaviour
                 newEnemy.OnDefeated += HandleEnemyDefeated;
                 newEnemy.Initialize(_playerTransform);
                 _aliveEnemiesCount++;
+
+                // ★★★ アイテムシステム用：静的イベントを発火 ★★★
+                OnEnemySpawned?.Invoke(newEnemy);
             }
             yield return new WaitForSeconds(_spawnInterval);
         }
         _isSpawning = false;
     }
-
-    // EnemySpawner.cs の HandleEnemyDefeated メソッド内
 
     private void HandleEnemyDefeated(Enemy defeatedEnemy)
     {
@@ -91,6 +104,15 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.Log("Wave Cleared!");
             OnWaveCleared?.Invoke();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (_playerTransform != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_playerTransform.position, _spawnRadius);
         }
     }
 }

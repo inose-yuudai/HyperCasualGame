@@ -25,12 +25,14 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     public void TakeDamage(int damageAmount)
     {
+        Debug.Log($"プレイヤーがダメージを受けた: {damageAmount}", this);
         // ★ 無敵状態ならダメージを受けない
         if (_currentHealth <= 0 || _isInvincible)
             return;
 
         _currentHealth -= damageAmount;
         OnHealthChanged.Invoke(_currentHealth);
+        
 
         if (_currentHealth <= 0)
         {

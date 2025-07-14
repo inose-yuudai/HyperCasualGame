@@ -2,9 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+// PlayerBarVisualsのenumを参照するためにusingを追加
+using static PlayerBarVisuals;
 
 public class UIController : MonoBehaviour
 {
+    // ... (既存のUI要素は変更なし) ...
+    #region 既存のUI要素
     [Header("アイテムUI")]
     [SerializeField]
     private Button _timeStopButton;
@@ -13,10 +17,16 @@ public class UIController : MonoBehaviour
     private TextMeshProUGUI _timeStopCountText;
 
     [SerializeField]
-    private Button _invincibilityButton;
+    private Button _instantFeverButton;
 
     [SerializeField]
-    private TextMeshProUGUI _invincibilityCountText;
+    private TextMeshProUGUI _instantFeverCountText;
+
+    [SerializeField]
+    private Button _magnetFieldButton;
+
+    [SerializeField]
+    private TextMeshProUGUI _magnetFieldCountText;
 
     [Header("UI要素の参照")]
     [SerializeField]
@@ -61,6 +71,17 @@ public class UIController : MonoBehaviour
 
     [SerializeField]
     private float _comboFadeOutDuration = 0.5f;
+    #endregion
+
+    // --- 🔽🔽🔽 ここから追加 🔽🔽🔽 ---
+    [Header("設定・デバッグUI")]
+    [SerializeField]
+    private Button _pivotModeToggleButton; // モード切替ボタン
+
+    [SerializeField]
+    private TextMeshProUGUI _pivotModeStatusText; // 現在のモード表示用テキスト
+
+    // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
 
     [Header("参照するコンポーネント")]
     [SerializeField]
@@ -72,22 +93,34 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private PlayerHealth _playerHealth;
 
+    // --- 🔽🔽🔽 ここから追加 🔽🔽🔽 ---
+    [SerializeField]
+    private PlayerBarVisuals _playerBarVisuals; // Visualsへの参照を追加
+
+    // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
+
     private bool _isProgressBarInitialized = false;
     private bool _isHealthBarInitialized = false;
 
     private void Start()
     {
-        // if (GameManager.Instance != null)
-        // {
-        //     GameManager.Instance.OnComboUpdated.AddListener(UpdateComboDisplay);
-        //     GameManager.Instance.OnItemCountChanged.AddListener(UpdateItemCountDisplay);
-        // }
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnComboUpdated.AddListener(UpdateComboDisplay);
+        }
 
-        // _timeStopButton?.onClick.AddListener(OnTimeStopButtonPressed);
-        // _invincibilityButton?.onClick.AddListener(OnInvincibilityButtonPressed);
+        if (ItemManager.Instance != null)
+        {
+            ItemManager.Instance.OnItemCountChanged.AddListener(UpdateItemCountDisplay);
+        }
+
+        _timeStopButton?.onClick.AddListener(OnTimeStopButtonPressed);
+        _instantFeverButton?.onClick.AddListener(OnInstantFeverButtonPressed);
+        _magnetFieldButton?.onClick.AddListener(OnMagnetFieldButtonPressed);
 
         _enemySpawner?.OnEnemyCountUpdated.AddListener(UpdateEnemyCountDisplay);
         _playerHealth?.OnHealthChanged.AddListener(UpdatePlayerHealthDisplay);
+
         if (_playerBar != null)
         {
             _playerBar.OnDeploymentsChanged.AddListener(UpdateDeploymentsRemaining);
@@ -95,6 +128,18 @@ public class UIController : MonoBehaviour
         }
         _feverButton?.onClick.AddListener(OnFeverButtonPressed);
 
+        // --- 🔽🔽🔽 ここから追加 🔽🔽🔽 ---
+        _pivotModeToggleButton?.onClick.AddListener(OnPivotModeTogglePressed);
+        if (_playerBarVisuals != null)
+        {
+            _playerBarVisuals.OnPivotModeChanged += UpdatePivotModeButtonDisplay;
+            // 初期表示の更新
+            UpdatePivotModeButtonDisplay(_playerBarVisuals.CurrentPivotMode);
+        }
+        // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
+
+
+        // --- 初期値の設定 ---
         if (_playerBar != null)
         {
             UpdateDeploymentsRemaining(_playerBar.GetInitialDeployments());
@@ -104,57 +149,131 @@ public class UIController : MonoBehaviour
         {
             UpdatePlayerHealthDisplay(_playerHealth.GetInitialHealth());
         }
-
         if (_comboGroup != null)
             _comboGroup.SetActive(false);
     }
 
     private void OnDestroy()
     {
+        // ... (既存のリスナー解除処理は変更なし) ...
+        #region 既存のリスナー解除
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnComboUpdated.RemoveListener(UpdateComboDisplay);
-          //  GameManager.Instance.OnItemCountChanged.RemoveListener(UpdateItemCountDisplay);
         }
-        // _timeStopButton?.onClick.RemoveListener(OnTimeStopButtonPressed);
-        // _invincibilityButton?.onClick.RemoveListener(OnInvincibilityButtonPressed);
+
+        if (ItemManager.Instance != null)
+        {
+            ItemManager.Instance.OnItemCountChanged.RemoveListener(UpdateItemCountDisplay);
+        }
+
+        _timeStopButton?.onClick.RemoveListener(OnTimeStopButtonPressed);
+        _instantFeverButton?.onClick.RemoveListener(OnInstantFeverButtonPressed);
+        _magnetFieldButton?.onClick.RemoveListener(OnMagnetFieldButtonPressed);
+
         _enemySpawner?.OnEnemyCountUpdated.RemoveListener(UpdateEnemyCountDisplay);
         _playerHealth?.OnHealthChanged.RemoveListener(UpdatePlayerHealthDisplay);
+
         if (_playerBar != null)
         {
             _playerBar.OnDeploymentsChanged.RemoveListener(UpdateDeploymentsRemaining);
             _playerBar.OnFeverCountChanged.RemoveListener(UpdateFeverCount);
         }
+
         _feverButton?.onClick.RemoveListener(OnFeverButtonPressed);
+        #endregion
+
+        // --- 🔽🔽🔽 ここから追加 🔽🔽🔽 ---
+        _pivotModeToggleButton?.onClick.RemoveListener(OnPivotModeTogglePressed);
+        if (_playerBarVisuals != null)
+        {
+            _playerBarVisuals.OnPivotModeChanged -= UpdatePivotModeButtonDisplay;
+        }
+        // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
     }
 
-    // private void OnTimeStopButtonPressed() => GameManager.Instance?.UseTimeStop();
+    // --- 🔽🔽🔽 ここからメソッドを新規追加 🔽🔽🔽 ---
 
-    // private void OnInvincibilityButtonPressed() => GameManager.Instance?.UseInvincibility();
+    /// <summary>
+    /// モード切替ボタンが押された時に呼ばれる
+    /// </summary>
+    private void OnPivotModeTogglePressed()
+    {
+        _playerBarVisuals?.TogglePivotMode();
+    }
 
-    // private void UpdateItemCountDisplay(ItemType itemType, int count)
-    // {
-    //     switch (itemType)
-    //     {
-    //         case ItemType.TimeStop:
-    //             if (_timeStopCountText != null)
-    //                 _timeStopCountText.text = $"{count}";
-    //             if (_timeStopButton != null)
-    //                 _timeStopButton.interactable = (count > 0);
-    //             break;
-    //         case ItemType.Invincibility:
-    //             if (_invincibilityCountText != null)
-    //                 _invincibilityCountText.text = $"{count}";
-    //             if (_invincibilityButton != null)
-    //                 _invincibilityButton.interactable = (count > 0);
-    //             break;
-    //     }
-    // }
+    /// <summary>
+    /// PlayerBarVisualsからモード変更が通知された時に呼ばれる
+    /// </summary>
+    private void UpdatePivotModeButtonDisplay(BarPivotMode newMode)
+    {
+        if (_pivotModeStatusText == null)
+            return;
+
+        switch (newMode)
+        {
+            case BarPivotMode.EndPoint:
+                _pivotModeStatusText.text = "endpoint";
+                break;
+            case BarPivotMode.Center:
+                _pivotModeStatusText.text = "center";
+                break;
+        }
+    }
+
+    // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
+
+
+
+
+    #region 既存のメソッド（変更なし）
+                    private void OnTimeStopButtonPressed()
+    {
+        ItemManager.Instance?.UseItem(ItemType.TimeStop);
+    }
+
+    private void OnInstantFeverButtonPressed()
+    {
+        ItemManager.Instance?.UseItem(ItemType.InstantFever);
+    }
+
+    private void OnMagnetFieldButtonPressed()
+    {
+        ItemManager.Instance?.UseItem(ItemType.MagnetField);
+    }
+
+    private void UpdateItemCountDisplay(ItemType itemType, int count)
+    {
+        switch (itemType)
+        {
+            case ItemType.TimeStop:
+                if (_timeStopCountText != null)
+                    _timeStopCountText.text = $"{count}";
+                if (_timeStopButton != null)
+                    _timeStopButton.interactable = (count > 0);
+                break;
+
+            case ItemType.InstantFever:
+                if (_instantFeverCountText != null)
+                    _instantFeverCountText.text = $"{count}";
+                if (_instantFeverButton != null)
+                    _instantFeverButton.interactable = (count > 0);
+                break;
+
+            case ItemType.MagnetField:
+                if (_magnetFieldCountText != null)
+                    _magnetFieldCountText.text = $"{count}";
+                if (_magnetFieldButton != null)
+                    _magnetFieldButton.interactable = (count > 0);
+                break;
+        }
+    }
 
     private void UpdateEnemyCountDisplay()
     {
         if (_enemySpawner == null)
             return;
+
         if (!_isProgressBarInitialized && _enemySpawner.TotalEnemiesToSpawn > 0)
         {
             if (_progressBarSlider != null)
@@ -164,6 +283,7 @@ public class UIController : MonoBehaviour
             }
             _isProgressBarInitialized = true;
         }
+
         UpdateProgressBar();
     }
 
@@ -176,6 +296,7 @@ public class UIController : MonoBehaviour
         )
         {
             _progressBarSlider.value = _enemySpawner.DefeatedEnemiesCount;
+
             if (_progressText != null)
             {
                 float progressPercentage =
@@ -187,7 +308,7 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerHealthDisplay(int health)
+    public void UpdatePlayerHealthDisplay(int health)
     {
         if (!_isHealthBarInitialized && _playerHealth != null)
         {
@@ -197,10 +318,12 @@ public class UIController : MonoBehaviour
             }
             _isHealthBarInitialized = true;
         }
+
         if (_playerHealthText != null)
         {
             _playerHealthText.text = $"{health}";
         }
+
         if (_playerHealthSlider != null)
         {
             _playerHealthSlider.value = health;
@@ -221,13 +344,17 @@ public class UIController : MonoBehaviour
         {
             _feverCountText.text = $"{count}";
         }
+
         if (_feverButton != null)
         {
             _feverButton.interactable = (count > 0);
         }
     }
 
-    private void OnFeverButtonPressed() => _playerBar?.ActivateFever();
+    private void OnFeverButtonPressed()
+    {
+        _playerBar?.ActivateFever();
+    }
 
     private void UpdateComboDisplay(int comboCount)
     {
@@ -238,14 +365,17 @@ public class UIController : MonoBehaviour
             || _comboGroupCanvasGroup == null
         )
             return;
+
         _comboNumberText.transform.DOKill();
         _comboGroupCanvasGroup.DOKill();
+
         if (comboCount > 1)
         {
             _comboNumberText.text = $"{comboCount}";
             _comboLabelText.text = "COMBO";
             _comboGroupCanvasGroup.alpha = 1f;
             _comboGroup.SetActive(true);
+
             _comboNumberText.transform.localScale = Vector3.one * 1.8f;
             _comboNumberText.transform.DOScale(1f, _comboAnimationDuration).SetEase(Ease.OutBack);
         }
@@ -256,4 +386,5 @@ public class UIController : MonoBehaviour
                 .OnComplete(() => _comboGroup.SetActive(false));
         }
     }
+    #endregion
 }

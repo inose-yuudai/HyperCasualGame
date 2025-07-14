@@ -1,57 +1,34 @@
 using UnityEngine;
-
-using UnityEngine.InputSystem;
-
 using UnityEngine.Events;
-
-using DG.Tweening;
-
 using System;
 
+[RequireComponent(typeof(PlayerBarInput), typeof(PlayerBarVisuals), typeof(PlayerBarCombat))]
 public class PlayerBar : MonoBehaviour
 {
+    // --- イベント ---
+    public event Action OnFirstBarDeployed;
+    public UnityEvent<int> OnDeploymentsChanged;
+    public UnityEvent<int> OnFeverCountChanged;
+
+    // --- 状態定義 ---
     private enum BarState
     {
         Idle,
-
         Aiming,
-
         Rotating,
-
         Fever
     }
 
-    // イベント
+    private BarState _currentState;
 
-    public UnityEvent<int> OnDeploymentsChanged;
-
-    public UnityEvent<int> OnFeverCountChanged;
-
-    // チュートリアル用のコールバック
-
-    public Action OnTutorialBarReleased;
-
-    [Header("参照")]
+    // --- Inspector設定 ---
+    [Header("ゲームルールの設定")]
     [SerializeField]
-    private Transform _barModelTransform;
-
-    [Header("展開回数の制御")]
-    [SerializeField, Tooltip("Barを展開できる最大回数")]
     private int _maxDeployments = 5;
 
-    #region Inspector設定項目
-
-    [Header("フィーバー制御")]
     [SerializeField]
     private int _maxFeverCount = 2;
 
-    [SerializeField]
-    private float _feverRotationSpeed = 2000f;
-
-    [SerializeField]
-    private int _feverRotations = 5;
-
-    [Header("長さの制御")]
     [SerializeField]
     private float _minLength = 1f;
 
@@ -61,6 +38,12 @@ public class PlayerBar : MonoBehaviour
     [Header("回転の制御")]
     [SerializeField]
     private float _baseRotationSpeed = 800f;
+
+    [SerializeField]
+    private float _feverRotationSpeed = 2000f;
+
+    [SerializeField]
+    private int _feverRotations = 5;
 
     [Header("収縮と方向転換の制御")]
     [SerializeField]
@@ -75,419 +58,220 @@ public class PlayerBar : MonoBehaviour
     [SerializeField]
     private int _maxReversals = 10;
 
-    [Header("戦闘の制御")]
-    [SerializeField]
-    private int _damage = 1;
+    [SerializeField, Min(0.1f)]
+    private float _reversalCooldown = 0.2f;
 
-    [SerializeField]
-    private float _knockbackForce = 10f;
-
-    [Header("ノックバック角度")]
-    [SerializeField, Range(0f, 1f)]
-    private float _knockbackUpwardRatio = 0.5f;
-
-    #endregion
-
-
-
-    // 内部変数
-
-    private BarState _currentState;
-
+    // --- 内部変数 ---
     private int _deploymentsRemaining;
-
-    private float _currentLength;
-
-    private float _rotationDirection = 1f;
-
-    private Camera _mainCamera;
-
-    private int _reversalsRemaining;
-
-    private float _currentShrinkRate;
-
     private int _feverUsesRemaining;
-
+    private float _currentLength;
+    private float _rotationDirection;
+    private int _reversalsRemaining;
+    private float _currentShrinkRate;
+    private float _timeInRotationState;
     private float _totalRotationInFever;
+    private bool _firstBarHasBeenDeployed = false;
+    private bool _isTutorialMode = false;
 
-    private bool _isPreviewActive = false; // プレビューが表示されているかどうか
+    // --- コンポーネント参照 ---
+    private PlayerBarInput _input;
+    private PlayerBarVisuals _visuals;
+    private PlayerBarCombat _combat;
+
+    private void Awake()
+    {
+        // 自身と同じGameObjectにアタッチされたコンポーネントを自動で取得
+        _input = GetComponent<PlayerBarInput>();
+        _visuals = GetComponent<PlayerBarVisuals>();
+        _combat = GetComponent<PlayerBarCombat>();
+    }
+
+    private void OnEnable()
+    {
+        // 入力イベントの購読
+        _input.OnDragStart += HandleDragStart;
+        _input.OnDragUpdate += HandleDragUpdate;
+        _input.OnDragEnd += HandleDragEnd;
+        _input.OnTap += HandleTap;
+    }
+
+    private void OnDisable()
+    {
+        // 入力イベントの購読解除
+        _input.OnDragStart -= HandleDragStart;
+        _input.OnDragUpdate -= HandleDragUpdate;
+        _input.OnDragEnd -= HandleDragEnd;
+        _input.OnTap -= HandleTap;
+    }
 
     private void Start()
     {
-        _mainCamera = Camera.main;
-
-        _barModelTransform.gameObject.SetActive(false);
-
         _currentState = BarState.Idle;
+        _visuals.SetActive(false);
 
         _deploymentsRemaining = _maxDeployments;
-
         OnDeploymentsChanged.Invoke(_deploymentsRemaining);
 
         _feverUsesRemaining = _maxFeverCount;
-
         OnFeverCountChanged.Invoke(_feverUsesRemaining);
     }
-
-    public int GetInitialDeployments() => _deploymentsRemaining;
-
-    public int GetInitialFeverCount() => _maxFeverCount;
 
     private void Update()
     {
         switch (_currentState)
         {
-            case BarState.Idle:
-
-                HandleIdleState();
-
-                break;
-
-            case BarState.Aiming:
-
-                HandleAimingState();
-
-                break;
-
             case BarState.Rotating:
-
-                HandleRotatingState();
-
+                UpdateRotatingState();
                 break;
-
             case BarState.Fever:
-
-                HandleFeverState();
-
+                UpdateFeverState();
                 break;
         }
     }
 
-    private void HandleIdleState()
-    {
-        if (_deploymentsRemaining <= 0 && _feverUsesRemaining <= 0)
+    // --- 入力イベントのハンドラ ---
 
+    private void HandleDragStart(Vector3 position)
+    {
+        if (_currentState != BarState.Idle)
+            return;
+        if (!_isTutorialMode && _deploymentsRemaining <= 0)
             return;
 
-        var pointer = Pointer.current;
-
-        if (pointer != null && pointer.press.wasPressedThisFrame)
-        {
-            if (_deploymentsRemaining > 0)
-            {
-                // チュートリアル中でプレビューが表示されている場合は、GameManagerに通知
-
-                if (_isPreviewActive && GameManager.Instance != null)
-                {
-                    GameManager.Instance.OnTutorialDragStart();
-
-                    _isPreviewActive = false;
-                }
-
-                _currentState = BarState.Aiming;
-
-                _barModelTransform.gameObject.SetActive(true);
-            }
-        }
+        _currentState = BarState.Aiming;
+        _visuals.SetActive(true);
+        _currentLength = 0.1f;
+        _visuals.UpdateTransform(_currentLength, transform.rotation);
     }
 
-    /// <summary>
-
-    /// チュートリアル用に、Barのプレビューを表示状態にする
-
-    /// </summary>
-
-    public void ShowPreview()
+    private void HandleDragUpdate(Vector3 dragVector)
     {
-        _isPreviewActive = true;
-
-        _barModelTransform.gameObject.SetActive(true);
-
-        // 全てのRendererを取得して半透明にする
-
-        foreach (var renderer in _barModelTransform.GetComponentsInChildren<Renderer>())
-        {
-            // マテリアルのインスタンスを作成して元のマテリアルを保護
-
-            var mat = renderer.material;
-
-            var color = mat.color;
-
-            mat.color = new Color(color.r, color.g, color.b, 0.5f);
-        }
-    }
-
-    /// <summary>
-
-    /// チュートリアル用に、Barのプレビューをアニメーションさせる
-
-    /// </summary>
-
-    public Tween AnimatePreview(float length, float duration)
-    {
-        // 回転方向を右下に設定
-
-        transform.rotation = Quaternion.Euler(0, 45, 0);
-
-        return _barModelTransform
-            .DOScaleX(length, duration)
-            .SetEase(Ease.OutCubic)
-            .OnUpdate(() =>
-            {
-                float currentPreviewLength = _barModelTransform.localScale.x;
-
-                _barModelTransform.localPosition = new Vector3(currentPreviewLength * 0.5f, 0, 0);
-            });
-    }
-
-    /// <summary>
-
-    /// チュートリアル用に、Barのプレビューを非表示にする
-
-    /// </summary>
-
-    public Tween HidePreview(float duration)
-    {
-        _isPreviewActive = false;
-
-        var renderers = _barModelTransform.GetComponentsInChildren<Renderer>();
-
-        if (renderers.Length == 0)
-
-            return null;
-
-        var sequence = DOTween.Sequence();
-
-        foreach (var renderer in renderers)
-        {
-            var mat = renderer.material;
-
-            sequence.Join(mat.DOFade(0, duration));
-        }
-
-        sequence.OnComplete(() =>
-        {
-            _barModelTransform.gameObject.SetActive(false);
-
-            // 透明度を元に戻しておく
-
-            foreach (var renderer in renderers)
-            {
-                var mat = renderer.material;
-
-                mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 1f);
-            }
-        });
-
-        return sequence;
-    }
-
-    /// <summary>
-
-    /// チュートリアルのループ開始時にプレビューをリセットする
-
-    /// </summary>
-
-    public void ResetPreview()
-    {
-        UpdateBarTransform(0);
-
-        var renderers = _barModelTransform.GetComponentsInChildren<Renderer>();
-
-        foreach (var renderer in renderers)
-        {
-            var mat = renderer.material;
-
-            mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0.5f);
-        }
-    }
-
-    private void HandleAimingState()
-    {
-        var pointer = Pointer.current;
-
-        if (pointer == null)
-
+        if (_currentState != BarState.Aiming)
             return;
 
-        // 透明度を通常に戻す（プレビューから通常のBarに切り替わった場合）
+        float dragDistance = dragVector.magnitude;
+        _currentLength = Mathf.Clamp(dragDistance, 0.1f, _maxLength);
 
-        if (_isPreviewActive)
+        Quaternion newRotation = transform.rotation;
+        if (dragVector.sqrMagnitude > 0.01f)
         {
-            _isPreviewActive = false;
+            newRotation = Quaternion.LookRotation(dragVector.normalized, Vector3.up);
+        }
+        transform.rotation = newRotation;
+        _visuals.UpdateTransform(_currentLength, newRotation);
+    }
 
-            foreach (var renderer in _barModelTransform.GetComponentsInChildren<Renderer>())
-            {
-                var mat = renderer.material;
+    private void HandleDragEnd()
+    {
+        if (_currentState != BarState.Aiming)
+            return;
 
-                var color = mat.color;
-
-                mat.color = new Color(color.r, color.g, color.b, 1f);
-            }
+        if (_currentLength < _minLength)
+        {
+            TransitionToIdle();
+            return;
         }
 
-        if (pointer.press.isPressed)
+        if (!_firstBarHasBeenDeployed)
         {
-            var groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-            Ray ray = _mainCamera.ScreenPointToRay(pointer.position.ReadValue());
-
-            if (groundPlane.Raycast(ray, out float enter))
-            {
-                Vector3 barVector = ray.GetPoint(enter) - transform.position;
-
-                barVector.y = 0;
-
-                float previewLength = Mathf.Clamp(barVector.magnitude, _minLength, _maxLength);
-
-                UpdateBarTransform(previewLength);
-
-                if (barVector != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.LookRotation(barVector.normalized, Vector3.up);
-                }
-            }
+            OnFirstBarDeployed?.Invoke();
+            _firstBarHasBeenDeployed = true;
         }
 
-        if (pointer.press.wasReleasedThisFrame)
+        if (!_isTutorialMode)
         {
-            float finalLength = _barModelTransform.localScale.x;
-
-            if (finalLength <= _minLength)
-            {
-                // 長さが足りなければキャンセル
-
-                _barModelTransform.gameObject.SetActive(false);
-
-                _currentState = BarState.Idle;
-
-                return;
-            }
-
-            // Barの生成が確定
-
             _deploymentsRemaining--;
-
             OnDeploymentsChanged.Invoke(_deploymentsRemaining);
-
-            _currentLength = finalLength;
-
-            _rotationDirection = 1f;
-
-            _currentShrinkRate = _shrinkRate + (_currentLength * _lengthToShrinkRateBonus);
-
-            _reversalsRemaining = _maxReversals;
-
-            _currentState = BarState.Rotating;
-
-            // チュートリアル用のコールバックを呼び出す
-
-            OnTutorialBarReleased?.Invoke();
         }
+
+        // 回転状態へ移行
+        _rotationDirection = 1f;
+        _currentShrinkRate = _shrinkRate + (_currentLength * _lengthToShrinkRateBonus);
+        _reversalsRemaining = _maxReversals;
+        _timeInRotationState = 0f;
+        _currentState = BarState.Rotating;
+        _combat.SetCombatActive(true);
     }
 
-    private void HandleRotatingState()
+    private void HandleTap()
     {
-        _currentLength -= _currentShrinkRate * Time.deltaTime;
-
-        if (_currentLength <= _minLength)
-        {
-            _barModelTransform.gameObject.SetActive(false);
-
-            _currentState = BarState.Idle;
-
-            return;
-        }
-
-        UpdateBarTransform(_currentLength);
-
-        float currentRotationSpeed = (_baseRotationSpeed / _currentLength) * _rotationDirection;
-
-        transform.Rotate(Vector3.up, currentRotationSpeed * Time.deltaTime);
-
-        var pointer = Pointer.current;
-
-        if (pointer != null && pointer.press.wasPressedThisFrame)
+        if (_currentState == BarState.Rotating && _timeInRotationState > _reversalCooldown)
         {
             if (_reversalsRemaining > 0)
             {
                 _rotationDirection *= -1f;
-
                 _reversalsRemaining--;
-
-                _currentLength -= _lengthPenaltyPerReversal;
+                _currentLength = Mathf.Max(_minLength, _currentLength - _lengthPenaltyPerReversal);
             }
         }
     }
 
-    private void UpdateBarTransform(float length)
+    // --- 状態更新ロジック ---
+
+    private void UpdateRotatingState()
     {
-        _barModelTransform.localScale = new Vector3(
-            length,
-            _barModelTransform.localScale.y,
-            _barModelTransform.localScale.z
-        );
+        _timeInRotationState += Time.deltaTime;
+        _currentLength -= _currentShrinkRate * Time.deltaTime;
 
-        _barModelTransform.localPosition = new Vector3(length * 0.5f, 0f, 0f);
-    }
+        _visuals.CheckBlinking(_currentLength);
 
-    public void ActivateFever()
-    {
-        if (_currentState != BarState.Idle || _feverUsesRemaining <= 0)
-
+        if (_currentLength <= _minLength)
+        {
+            TransitionToIdle();
             return;
+        }
 
-        _feverUsesRemaining--;
-
-        OnFeverCountChanged.Invoke(_feverUsesRemaining);
-
-        _totalRotationInFever = 0f;
-
-        _currentState = BarState.Fever;
-
-        UpdateBarTransform(_maxLength);
-
-        _barModelTransform.gameObject.SetActive(true);
+        float rotationSpeed = (_baseRotationSpeed / _currentLength) * _rotationDirection;
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+        _visuals.UpdateTransform(_currentLength, transform.rotation);
     }
 
-    private void HandleFeverState()
+    private void UpdateFeverState()
     {
         float rotationThisFrame = _feverRotationSpeed * Time.deltaTime;
-
         transform.Rotate(Vector3.up, rotationThisFrame);
-
         _totalRotationInFever += Mathf.Abs(rotationThisFrame);
 
         if (_totalRotationInFever >= _feverRotations * 360f)
         {
-            _barModelTransform.gameObject.SetActive(false);
-
-            _currentState = BarState.Idle;
+            TransitionToIdle();
         }
     }
 
-    public void ProcessHit(Collider other)
+    private void TransitionToIdle()
     {
-        if (_currentState != BarState.Rotating && _currentState != BarState.Fever)
+        _currentState = BarState.Idle;
+        _visuals.SetActive(false);
+        _visuals.StopBlinking();
+        _combat.SetCombatActive(false);
+    }
 
+    // --- Public API ---
+
+    public void ActivateFever()
+    {
+        if (_currentState != BarState.Idle || _feverUsesRemaining <= 0)
             return;
 
-        if (other.gameObject.CompareTag("Enemy"))
+        if (!_firstBarHasBeenDeployed)
         {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-
-            if (enemy != null)
-            {
-                Vector3 horizontalDirection = other.transform.position - transform.position;
-
-                horizontalDirection.y = 0;
-
-                Vector3 knockbackDirection = (
-                    horizontalDirection.normalized + Vector3.up * _knockbackUpwardRatio
-                ).normalized;
-
-                enemy.TakeDamage(_damage, knockbackDirection, _knockbackForce);
-            }
+            OnFirstBarDeployed?.Invoke();
+            _firstBarHasBeenDeployed = true;
         }
+
+        _feverUsesRemaining--;
+        OnFeverCountChanged.Invoke(_feverUsesRemaining);
+
+        _totalRotationInFever = 0f;
+        _currentState = BarState.Fever;
+        _visuals.SetActive(true);
+        _visuals.UpdateTransform(_maxLength, transform.rotation);
+        _combat.SetCombatActive(true);
     }
+
+    public void SetTutorialMode(bool isTutorial) => _isTutorialMode = isTutorial;
+
+    public int GetInitialDeployments() => _deploymentsRemaining;
+
+    public int GetInitialFeverCount() => _feverUsesRemaining;
 }
