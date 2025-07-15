@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-    // --- 既存のコード (変更なし) ---
-    #region 既存の変数・メソッド
+    // --- 既存の変数 ---
+    #region 既存の変数
     private enum EnemyState
     {
         Spawning,
@@ -25,29 +26,32 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private Renderer _renderer;
     private float _currentMoveSpeed;
-    private Color _originalColor; // ◀◀◀ 元の色を保存するために追加
+    private Color _originalColor;
 
     [SerializeField]
     private int _currentHealth;
 
+    public AudioManager _audioManager;
     private static readonly int k_animatorTriggerDie = Animator.StringToHash("Die");
+    private static readonly int k_animatorTriggerHit = Animator.StringToHash("Hit"); // ★ 1. HitトリガーのIDを追加
+
     public int ScoreValue => (_enemyData != null) ? _enemyData.scoreValue : 0;
-    #endregion
 
-    // --- 🔽🔽🔽 ここから追加 🔽🔽🔽 ---
-
-    // 凍結中に受けた吹っ飛ばし情報を保存する構造体
     private struct PendingKnockback
     {
         public Vector3 Direction;
         public float Force;
     }
 
-    private PendingKnockback? _pendingKnockback; // null許容型で保存情報があるか判断
-
+    private PendingKnockback? _pendingKnockback;
     public bool IsFrozen { get; private set; }
+    #endregion
 
-    // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
+    [Header("戦闘設定")]
+    [SerializeField, Tooltip("ダメージを受けた際の硬直時間（秒）")]
+    private float k_hitStunDuration = 0.2f;
+    private bool _isHitStunned = false;
+    private Coroutine _hitStunCoroutine;
 
     private void Awake()
     {
@@ -55,11 +59,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
         _renderer = GetComponentInChildren<Renderer>();
         _currentState = EnemyState.Spawning;
-
-        if (_renderer != null)
-        {
-            //_originalColor = _renderer.material.color; // ◀◀◀ 元の色をAwakeで取得
-        }
+        _audioManager = FindObjectOfType<AudioManager>();
 
         if (_enemyData == null)
         {
@@ -70,16 +70,71 @@ public class Enemy : MonoBehaviour
         ApplyData();
     }
 
-    // --- FixedUpdate, Initialize, ApplyData は変更なし ---
-    #region 変更のないメソッド (一部)
     private void FixedUpdate()
     {
-        if (_currentState == EnemyState.Moving && !IsFrozen) // ◀◀◀ 凍結中は移動しないように追記
+        if (_currentState == EnemyState.Moving && !IsFrozen && !_isHitStunned)
         {
             MoveTowardsTarget();
         }
     }
 
+    public void TakeDamage(int damage, Vector3 knockbackDirection, float knockbackForce)
+    {
+        if (_currentState == EnemyState.Dying)
+            return;
+
+        _currentHealth -= damage;
+
+        if (_currentHealth > 0)
+        {
+            if (_audioManager != null)
+            {
+                _audioManager.PlaySFX(SFXType.EnemyDamage);
+            }
+            TriggerHitStun();
+        }
+        else
+        {
+            DieAndGetBlownAway(knockbackDirection, knockbackForce);
+            _audioManager?.PlaySFX(SFXType.EnemyDeath);
+        }
+    }
+
+    private void TriggerHitStun()
+    {
+        // ★ 2. アニメーショントリガーをここで起動する
+        if (_animator != null)
+        {
+            _animator.SetTrigger(k_animatorTriggerHit);
+        }
+
+        if (_hitStunCoroutine != null)
+        {
+            StopCoroutine(_hitStunCoroutine);
+        }
+        _hitStunCoroutine = StartCoroutine(HitStunCoroutine());
+    }
+
+    private IEnumerator HitStunCoroutine()
+    {
+        _isHitStunned = true;
+        if (_rigidbody != null)
+        {
+            _rigidbody.linearVelocity = Vector3.zero;
+        }
+
+        yield return new WaitForSeconds(k_hitStunDuration);
+
+        if (_renderer != null && !IsFrozen)
+        {
+            _renderer.material.color = _originalColor;
+        }
+
+        _isHitStunned = false;
+        _hitStunCoroutine = null;
+    }
+
+    #region 変更のないメソッド
     public void Initialize(Transform target)
     {
         _targetPlayer = target;
@@ -97,33 +152,11 @@ public class Enemy : MonoBehaviour
         _currentMoveSpeed = _enemyData.moveSpeed;
         _currentHealth = _enemyData.health;
     }
-    #endregion
-
-    public void TakeDamage(int damage, Vector3 knockbackDirection, float knockbackForce)
-    {
-        if (_currentState == EnemyState.Dying)
-            return;
-
-        _currentHealth -= damage;
-
-        if (_currentHealth > 0)
-        {
-            // 生きている場合はダメージ色に（凍結してなければ）
-            if (_renderer != null && !IsFrozen)
-                _renderer.material.color = _enemyData.damagedColor;
-            // TODO: ダメージ色から元の色に戻す処理も必要に応じて追加
-        }
-        else
-        {
-            // HPが0以下になったらやられる処理へ
-            DieAndGetBlownAway(knockbackDirection, knockbackForce);
-        }
-    }
 
     private void DieAndGetBlownAway(Vector3 knockbackDirection, float knockbackForce)
     {
         if (_currentState == EnemyState.Dying)
-            return; // 既に死んでいる場合は何もしない
+            return;
 
         SetState(EnemyState.Dying);
         OnDefeated?.Invoke(this);
@@ -132,11 +165,8 @@ public class Enemy : MonoBehaviour
         if (_animator != null)
             _animator.SetTrigger(k_animatorTriggerDie);
 
-        // --- 🔽🔽🔽 ここから修正 🔽🔽🔽 ---
-
         if (IsFrozen)
         {
-            // 凍結中の場合、吹っ飛ばし情報を保存するだけ
             _pendingKnockback = new PendingKnockback
             {
                 Direction = knockbackDirection,
@@ -145,11 +175,8 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            // 通常時はすぐに吹っ飛ばす
             ApplyKnockback(knockbackDirection, knockbackForce);
         }
-
-        // --- 🔼🔼🔼 修正ここまで 🔼🔼🔼 ---
 
         Destroy(gameObject, 3f);
     }
@@ -161,8 +188,6 @@ public class Enemy : MonoBehaviour
         _rigidbody.AddTorque(transform.up * force * 0.1f, ForceMode.Impulse);
     }
 
-    // --- 🔽🔽🔽 ここからメソッドを新規追加 🔽🔽🔽 ---
-
     public void Freeze()
     {
         if (IsFrozen)
@@ -171,7 +196,6 @@ public class Enemy : MonoBehaviour
 
         if (_rigidbody != null)
         {
-            // isKinematicをtrueにすることで、物理的な力を無視する状態にする
             _rigidbody.isKinematic = true;
         }
         if (_animator != null)
@@ -200,21 +224,16 @@ public class Enemy : MonoBehaviour
         }
         if (_renderer != null)
         {
-            _renderer.material.color = _originalColor; // 元の色に戻す
+            _renderer.material.color = _originalColor;
         }
 
-        // 保存されていた吹っ飛ばし情報があれば、ここで適用する
         if (_pendingKnockback.HasValue)
         {
             ApplyKnockback(_pendingKnockback.Value.Direction, _pendingKnockback.Value.Force);
-            _pendingKnockback = null; // 適用後はクリア
+            _pendingKnockback = null;
         }
     }
 
-    // --- 🔼🔼🔼 追加ここまで 🔼🔼🔼 ---
-
-    // --- OnCollisionEnter, DieByCollision, SetState は変更なし ---
-    #region 変更のないメソッド (残り)
     private void SetState(EnemyState newState)
     {
         if (_currentState == newState)
@@ -257,7 +276,6 @@ public class Enemy : MonoBehaviour
     private void DieByCollision()
     {
         SetState(EnemyState.Dying);
-       // OnDefeated?.Invoke(this);
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

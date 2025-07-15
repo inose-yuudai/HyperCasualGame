@@ -7,7 +7,8 @@ public enum ItemType
 {
     TimeStop,
     InstantFever,
-    MagnetField
+    MagnetField,
+    Bomb
 }
 
 public class ItemManager : MonoBehaviour
@@ -24,6 +25,9 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField]
     private int _initialMagnetFieldCount = 2;
+
+    [SerializeField]
+    private int _initialBombCount = 1;
 
     [Header("効果の持続時間")]
     [SerializeField]
@@ -49,12 +53,24 @@ public class ItemManager : MonoBehaviour
     [SerializeField]
     private GameObject _magnetFieldEffectPrefab;
 
+    [SerializeField]
+    private GameObject _bombEffectPrefab;
+
+    [Header("爆弾設定")]
+    [SerializeField]
+    private float _bombKnockbackForce = 20f; // 爆発の吹っ飛ばす力
+
+    [SerializeField, Range(0f, 1f)]
+    private float _bombKnockbackUpwardRatio = 0.4f; // 吹っ飛ばしの上方向への力の割合
+
     [Header("参照")]
     [SerializeField]
     private PlayerBar _playerBar;
 
     [SerializeField]
     private Transform _playerTransform;
+
+    public AudioManager _audioManager;
 
     private Dictionary<ItemType, int> _itemCounts = new Dictionary<ItemType, int>();
     private bool _isTimeStopActive = false;
@@ -75,6 +91,9 @@ public class ItemManager : MonoBehaviour
         _itemCounts[ItemType.TimeStop] = _initialTimeStopCount;
         _itemCounts[ItemType.InstantFever] = _initialInstantFeverCount;
         _itemCounts[ItemType.MagnetField] = _initialMagnetFieldCount;
+        _itemCounts[ItemType.Bomb] = _initialBombCount;
+
+        _audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Start()
@@ -82,6 +101,7 @@ public class ItemManager : MonoBehaviour
         OnItemCountChanged?.Invoke(ItemType.TimeStop, _itemCounts[ItemType.TimeStop]);
         OnItemCountChanged?.Invoke(ItemType.InstantFever, _itemCounts[ItemType.InstantFever]);
         OnItemCountChanged?.Invoke(ItemType.MagnetField, _itemCounts[ItemType.MagnetField]);
+        OnItemCountChanged?.Invoke(ItemType.Bomb, _itemCounts[ItemType.Bomb]);
 
         if (_playerBar == null)
         {
@@ -102,6 +122,9 @@ public class ItemManager : MonoBehaviour
         if (!HasItem(itemType))
             return;
 
+        _itemCounts[itemType]--;
+        OnItemCountChanged?.Invoke(itemType, _itemCounts[itemType]);
+
         switch (itemType)
         {
             case ItemType.TimeStop:
@@ -113,10 +136,10 @@ public class ItemManager : MonoBehaviour
             case ItemType.MagnetField:
                 UseMagnetField();
                 break;
+            case ItemType.Bomb:
+                UseBomb();
+                break;
         }
-
-        _itemCounts[itemType]--;
-        OnItemCountChanged?.Invoke(itemType, _itemCounts[itemType]);
     }
 
     private bool HasItem(ItemType itemType)
@@ -124,10 +147,60 @@ public class ItemManager : MonoBehaviour
         return _itemCounts.ContainsKey(itemType) && _itemCounts[itemType] > 0;
     }
 
+    /// <summary>
+    /// 爆弾を使用し、画面上のすべての敵に致命的なダメージとノックバックを与える
+    /// </summary>
+    private void UseBomb()
+    {
+        Debug.Log("BOMB! 画面上の敵に致命的なダメージを与えます。");
+
+        _audioManager?.PlaySFX(SFXType.BombExplosion);
+
+        // 爆発の中心地（プレイヤーの位置）を取得
+        Vector3 explosionCenter = _playerTransform.position;
+
+        // 爆発エフェクトを生成
+        if (_bombEffectPrefab != null)
+        {
+            // Instantiateで「クローン」を生成し、変数 effectInstance に代入
+            GameObject effectInstance = Instantiate(
+                _bombEffectPrefab,
+                explosionCenter,
+                Quaternion.identity
+            );
+
+            // 破壊するのは、生成したクローンである「effectInstance」
+            Destroy(effectInstance, 2.0f);
+        }
+        // シーン内の全てのEnemyコンポーネントを持つオブジェクトを検索
+        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
+
+        foreach (Enemy enemy in allEnemies)
+        {
+            if (enemy == null)
+                continue;
+
+            // 1. 吹っ飛ぶ方向を計算 (爆発中心から敵へのベクトル)
+            Vector3 horizontalDirection = enemy.transform.position - explosionCenter;
+            horizontalDirection.y = 0; // Y軸の影響をなくす
+
+            // 2. 上方向の力を加えて、最終的な吹っ飛ぶ方向を決定
+            Vector3 knockbackDirection = (
+                horizontalDirection.normalized + Vector3.up * _bombKnockbackUpwardRatio
+            ).normalized;
+
+            // 3. 敵のTakeDamageメソッドを呼び出す
+            //    ダメージ量を9999のような大きな値にして、確実に倒す
+            enemy.TakeDamage(9999, knockbackDirection, _bombKnockbackForce * 1.5f);
+
+        }
+    }
+
     private void UseTimeStop()
     {
         if (_isTimeStopActive)
             return;
+        _audioManager?.PlaySFX(SFXType.ClockTick);
         StartCoroutine(TimeStopCoroutine());
     }
 

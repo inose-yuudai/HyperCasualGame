@@ -124,6 +124,7 @@ public class PlayerBarVisuals : MonoBehaviour
 
     public Tween AnimatePreview(float length, float duration)
     {
+        Debug.Log("Animating preview to length: " + length, this);
         return _barModelTransform
             .DOScaleZ(length, duration)
             .SetEase(Ease.OutCubic)

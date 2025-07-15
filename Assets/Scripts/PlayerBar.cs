@@ -61,6 +61,10 @@ public class PlayerBar : MonoBehaviour
     [SerializeField, Min(0.1f)]
     private float _reversalCooldown = 0.2f;
 
+    [Header("効果音")]
+    [SerializeField]
+    private AudioSource _stretchingSoundSource;
+
     // --- 内部変数 ---
     private int _deploymentsRemaining;
     private int _feverUsesRemaining;
@@ -80,7 +84,6 @@ public class PlayerBar : MonoBehaviour
 
     private void Awake()
     {
-        // 自身と同じGameObjectにアタッチされたコンポーネントを自動で取得
         _input = GetComponent<PlayerBarInput>();
         _visuals = GetComponent<PlayerBarVisuals>();
         _combat = GetComponent<PlayerBarCombat>();
@@ -88,7 +91,6 @@ public class PlayerBar : MonoBehaviour
 
     private void OnEnable()
     {
-        // 入力イベントの購読
         _input.OnDragStart += HandleDragStart;
         _input.OnDragUpdate += HandleDragUpdate;
         _input.OnDragEnd += HandleDragEnd;
@@ -97,7 +99,6 @@ public class PlayerBar : MonoBehaviour
 
     private void OnDisable()
     {
-        // 入力イベントの購読解除
         _input.OnDragStart -= HandleDragStart;
         _input.OnDragUpdate -= HandleDragUpdate;
         _input.OnDragEnd -= HandleDragEnd;
@@ -138,6 +139,11 @@ public class PlayerBar : MonoBehaviour
         if (!_isTutorialMode && _deploymentsRemaining <= 0)
             return;
 
+        if (_stretchingSoundSource != null && !_stretchingSoundSource.isPlaying)
+        {
+            _stretchingSoundSource.Play();
+        }
+
         _currentState = BarState.Aiming;
         _visuals.SetActive(true);
         _currentLength = 0.1f;
@@ -166,6 +172,11 @@ public class PlayerBar : MonoBehaviour
         if (_currentState != BarState.Aiming)
             return;
 
+        if (_stretchingSoundSource != null && _stretchingSoundSource.isPlaying)
+        {
+            _stretchingSoundSource.Stop();
+        }
+
         if (_currentLength < _minLength)
         {
             TransitionToIdle();
@@ -184,7 +195,6 @@ public class PlayerBar : MonoBehaviour
             OnDeploymentsChanged.Invoke(_deploymentsRemaining);
         }
 
-        // 回転状態へ移行
         _rotationDirection = 1f;
         _currentShrinkRate = _shrinkRate + (_currentLength * _lengthToShrinkRateBonus);
         _reversalsRemaining = _maxReversals;

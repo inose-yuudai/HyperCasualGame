@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.EventSystems; // ★ 1. この行を追加
 
 public class PlayerBarInput : MonoBehaviour
 {
@@ -16,11 +17,13 @@ public class PlayerBarInput : MonoBehaviour
     private Plane _groundPlane;
     private Vector3 _dragStartPosition;
     private bool _isDragging = false;
+    private AudioManager _audioManager;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
         _groundPlane = new Plane(Vector3.up, Vector3.zero);
+        _audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -28,6 +31,11 @@ public class PlayerBarInput : MonoBehaviour
         var pointer = Pointer.current;
         if (pointer == null)
             return;
+        // ★ 1. UI上の要素がクリックされている場合は、PlayerBarInputの処理をスキップ
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
         // クリックが開始されたフレームの処理
         if (pointer.press.wasPressedThisFrame)
@@ -35,6 +43,7 @@ public class PlayerBarInput : MonoBehaviour
             // まず、タップイベントを発行します。
             // これにより、回転中の方向転換クリックが常に検知されます。
             OnTap?.Invoke();
+            _audioManager?.PlaySFX(SFXType.CahnegeRotation);
 
             // 次に、ドラッグ開始の準備をします。
             if (GetPointerPositionOnGround(out _dragStartPosition))
@@ -66,6 +75,7 @@ public class PlayerBarInput : MonoBehaviour
                 OnDragEnd?.Invoke();
                 _isDragging = false;
             }
+
         }
     }
 

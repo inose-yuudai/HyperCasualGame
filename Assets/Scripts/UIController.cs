@@ -27,6 +27,12 @@ public class UIController : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI _magnetFieldCountText;
+            // ★ 1. 爆弾用のUI参照を追加
+    [SerializeField]
+    private Button _bombButton;
+
+    [SerializeField]
+    private TextMeshProUGUI _bombCountText;
 
     [Header("UI要素の参照")]
     [SerializeField]
@@ -117,7 +123,7 @@ public class UIController : MonoBehaviour
         _timeStopButton?.onClick.AddListener(OnTimeStopButtonPressed);
         _instantFeverButton?.onClick.AddListener(OnInstantFeverButtonPressed);
         _magnetFieldButton?.onClick.AddListener(OnMagnetFieldButtonPressed);
-
+        _bombButton?.onClick.AddListener(OnBombButtonPressed); // ★ 2. 爆弾ボタンのクリックイベントを登録
         _enemySpawner?.OnEnemyCountUpdated.AddListener(UpdateEnemyCountDisplay);
         _playerHealth?.OnHealthChanged.AddListener(UpdatePlayerHealthDisplay);
 
@@ -155,7 +161,7 @@ public class UIController : MonoBehaviour
 
     private void OnDestroy()
     {
-        // ... (既存のリスナー解除処理は変更なし) ...
+        _bombButton?.onClick.RemoveListener(OnBombButtonPressed); // ★ 3. 爆弾ボタンのクリックイベントを解除
         #region 既存のリスナー解除
         if (GameManager.Instance != null)
         {
@@ -236,6 +242,10 @@ public class UIController : MonoBehaviour
     {
         ItemManager.Instance?.UseItem(ItemType.InstantFever);
     }
+      private void OnBombButtonPressed()
+    {
+        ItemManager.Instance?.UseItem(ItemType.Bomb);
+    }
 
     private void OnMagnetFieldButtonPressed()
     {
@@ -265,6 +275,13 @@ public class UIController : MonoBehaviour
                     _magnetFieldCountText.text = $"{count}";
                 if (_magnetFieldButton != null)
                     _magnetFieldButton.interactable = (count > 0);
+                break;
+             // ★ 5. 爆弾用の表示更新処理を追加
+            case ItemType.Bomb:
+                if (_bombCountText != null)
+                    _bombCountText.text = $"{count}";
+                if (_bombButton != null)
+                    _bombButton.interactable = (count > 0);
                 break;
         }
     }
