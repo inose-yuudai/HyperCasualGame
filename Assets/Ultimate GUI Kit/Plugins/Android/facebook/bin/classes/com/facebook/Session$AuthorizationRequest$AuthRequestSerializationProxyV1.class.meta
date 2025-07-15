@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 1afd21d86c9e84675998a01984f3cf9f
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/Session$AuthorizationRequest$AuthRequestSerializationProxyV1.class
+  uploadId: 53603

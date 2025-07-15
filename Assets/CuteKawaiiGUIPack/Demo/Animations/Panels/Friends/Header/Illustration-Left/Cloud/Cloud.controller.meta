@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7bca0b1ec823a48ff98e3cf06b935d0d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Friends/Header/Illustration-Left/Cloud/Cloud.controller
+  uploadId: 654793

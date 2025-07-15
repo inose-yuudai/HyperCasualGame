@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bc4a09c1274eb4a40b5b6afc1410b42b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Splash/Bunny/Bunny.controller
+  uploadId: 654793

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e80dbb25976f4fc449dbd97cae4ebf3e
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Script/ReadSceneNames.cs
+  uploadId: 53603

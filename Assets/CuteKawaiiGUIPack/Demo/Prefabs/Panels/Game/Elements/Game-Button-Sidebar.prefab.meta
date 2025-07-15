@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e68372a40b40c45e1b3999dba9535896
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Elements/Game-Button-Sidebar.prefab
+  uploadId: 654793

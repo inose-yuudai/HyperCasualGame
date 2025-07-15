@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 881d478f6fe1348eb82301d92f4d94f3
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/unity/FBUnityDeepLinkingActivity.class
+  uploadId: 53603

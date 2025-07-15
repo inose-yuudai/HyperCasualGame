@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 9cf4113445351432eaf07fcc51ce34dc
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Facebook/Editor/iOS/third_party/XCodeEditor-for-Unity/XCMod.cs
+  uploadId: 53603

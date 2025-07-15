@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 49fe968e0bc1741b8b47f7986d7fdc8c
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/res/layout/com_facebook_picker_title_bar.xml
+  uploadId: 53603

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 49815310928dd459083ba915d8e1d6cc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Popups/Lose/Cloud/Cloud-Idle.anim
+  uploadId: 654793

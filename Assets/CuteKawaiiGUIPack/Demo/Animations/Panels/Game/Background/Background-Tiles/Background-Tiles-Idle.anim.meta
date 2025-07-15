@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 644ebab2424fc4b1ca19ceebac926dfa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Background/Background-Tiles/Background-Tiles-Idle.anim
+  uploadId: 654793

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a7011b49def36450e852f61baf0b62b5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Home/Rewards-Banner/Ufo/Ufo-Light.controller
+  uploadId: 654793

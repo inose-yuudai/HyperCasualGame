@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7af142b2a92d245f0a65ff399079411a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Messages/Popups/Confirmation-Messages-Popup.prefab
+  uploadId: 654793

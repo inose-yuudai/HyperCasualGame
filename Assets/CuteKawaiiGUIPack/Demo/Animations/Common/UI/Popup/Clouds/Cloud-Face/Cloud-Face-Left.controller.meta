@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c866325219bcd483ea2e8a412664e191
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Common/UI/Popup/Clouds/Cloud-Face/Cloud-Face-Left.controller
+  uploadId: 654793

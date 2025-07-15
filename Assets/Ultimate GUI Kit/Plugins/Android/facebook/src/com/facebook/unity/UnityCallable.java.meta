@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: e588d44afd39c4a8f8ed664e37e89f9e
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/src/com/facebook/unity/UnityCallable.java
+  uploadId: 53603

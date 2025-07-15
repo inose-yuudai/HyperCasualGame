@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b83ae4662476d45ac9b09f88f98d26b2
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/FacebookDialog$ShareDialogBuilderBase.class
+  uploadId: 53603

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: fd5bd9cb42ab84300902b964b0acb831
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/internal/LikeActionController$CreateLikeActionControllerWorkItem.class
+  uploadId: 53603

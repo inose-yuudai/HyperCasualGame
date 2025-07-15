@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 14a41325c3bb54e2ca9ce2f2ca77c406
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/widget/GraphObjectPagingLoader$PagedResults.class
+  uploadId: 53603

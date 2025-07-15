@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c8ef73c4bc7b14f319094666b7681ef8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Popups/Level-Up/Particles-Star-Explosion.prefab
+  uploadId: 654793

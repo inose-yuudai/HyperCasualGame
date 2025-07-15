@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 661eaa7dc944546d88498a600854006b
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/src/com/facebook/internal/ServerProtocol.java
+  uploadId: 53603

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 73ad12f0e35244b99a745aca5d1e564e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 22100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Splash/Clouds/Cloud-Inner-2.overrideController
+  uploadId: 654793

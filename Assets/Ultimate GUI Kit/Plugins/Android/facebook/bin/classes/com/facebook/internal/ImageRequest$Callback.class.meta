@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 14439ed5c320e49db9dd9fa17a4b0fbf
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/internal/ImageRequest$Callback.class
+  uploadId: 53603

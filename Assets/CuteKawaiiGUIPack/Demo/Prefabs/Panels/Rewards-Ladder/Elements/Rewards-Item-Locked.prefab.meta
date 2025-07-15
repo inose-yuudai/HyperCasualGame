@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 191f7fd480c9440d89c945b0ed2cf3b1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Rewards-Ladder/Elements/Rewards-Item-Locked.prefab
+  uploadId: 654793

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5fc979c2b52e4492ebc006ea6aa08631
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Popups/Receivement/Wing-Left.controller
+  uploadId: 654793

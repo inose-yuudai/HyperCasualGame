@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 5e5e2a13f184f4721ab34f69f0193b3a
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/android/R$attr.class
+  uploadId: 53603

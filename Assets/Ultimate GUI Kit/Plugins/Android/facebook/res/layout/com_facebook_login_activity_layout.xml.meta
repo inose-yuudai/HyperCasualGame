@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 0ab50c5f2698749ae8aeb5d003477010
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/res/layout/com_facebook_login_activity_layout.xml
+  uploadId: 53603

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 59dd2ad02202348c18865afa6794198e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Home/Illustration/Tree/Tree.controller
+  uploadId: 654793

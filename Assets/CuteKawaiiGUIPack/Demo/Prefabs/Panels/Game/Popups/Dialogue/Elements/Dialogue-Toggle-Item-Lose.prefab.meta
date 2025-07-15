@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e33a9e01c5d914bcf932b2de3343d1c9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Popups/Dialogue/Elements/Dialogue-Toggle-Item-Lose.prefab
+  uploadId: 654793

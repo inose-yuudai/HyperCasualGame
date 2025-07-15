@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6362a656e7e6c4fd0bb72cd9d8813a47
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Missions/Bee/Bee-Wing-Left.controller
+  uploadId: 654793

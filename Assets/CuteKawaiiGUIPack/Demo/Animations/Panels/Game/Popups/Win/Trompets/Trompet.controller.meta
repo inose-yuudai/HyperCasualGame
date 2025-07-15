@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 72c5e3c4391e84d5daff54cc76ec2c12
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Game/Popups/Win/Trompets/Trompet.controller
+  uploadId: 654793

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4fe5d8d64004f4671a90ce2b5366f532
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Messages/Elements/Messages-Item-Friend-Request.prefab
+  uploadId: 654793

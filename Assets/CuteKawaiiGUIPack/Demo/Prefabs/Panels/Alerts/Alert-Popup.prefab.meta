@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dcc36ba9fab9c4eae8c986a614aaf36f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Alerts/Alert-Popup.prefab
+  uploadId: 654793

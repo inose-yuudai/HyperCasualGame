@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 84581ee00b3f14ad1a6a10d148bcfd19
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Splash/Bee/Bee.controller
+  uploadId: 654793

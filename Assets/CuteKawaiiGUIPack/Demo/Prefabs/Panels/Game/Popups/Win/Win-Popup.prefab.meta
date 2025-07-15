@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c9ff86330aa144f8ab0d4630c142770e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Prefabs/Panels/Game/Popups/Win/Win-Popup.prefab
+  uploadId: 654793

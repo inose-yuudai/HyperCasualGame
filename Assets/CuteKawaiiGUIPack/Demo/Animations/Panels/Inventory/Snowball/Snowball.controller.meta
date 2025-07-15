@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b98992036d50b48f099baef51a73f803
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Inventory/Snowball/Snowball.controller
+  uploadId: 654793

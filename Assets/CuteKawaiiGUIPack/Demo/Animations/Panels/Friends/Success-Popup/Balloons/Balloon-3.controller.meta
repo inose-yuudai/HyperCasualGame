@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 27b01201d54c54bccb824e8b0d08050e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277595
+  packageName: Cute Kawaii GUI Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/CuteKawaiiGUIPack/Demo/Animations/Panels/Friends/Success-Popup/Balloons/Balloon-3.controller
+  uploadId: 654793

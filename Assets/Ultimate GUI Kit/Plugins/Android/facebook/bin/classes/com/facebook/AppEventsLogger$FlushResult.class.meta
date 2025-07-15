@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: e334826068e4f4646984a81b789f10f9
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 19193
+  packageName: Ultimate GUI Kit
+  packageVersion: 1.0.4
+  assetPath: Assets/Ultimate GUI Kit/Plugins/Android/facebook/bin/classes/com/facebook/AppEventsLogger$FlushResult.class
+  uploadId: 53603
